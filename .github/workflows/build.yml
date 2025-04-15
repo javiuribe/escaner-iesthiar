@@ -27,12 +27,14 @@ jobs:
         run: |
           if [ -d "dist/escaner-win32-x64" ]; then
             echo "✔️ Carpeta de Windows encontrada.";
+            echo "windows=true" >> $GITHUB_ENV
           else
             echo "❌ Carpeta de Windows no encontrada.";
+            echo "windows=false" >> $GITHUB_ENV
           fi
 
       - name: 📁 Subir ejecutable para Windows como artefacto
-        if: success() && file_exists('dist/escaner-win32-x64')
+        if: env.windows == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: ejecutable-windows
