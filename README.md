@@ -6,10 +6,11 @@ Este documento describe la configuración del escáner Honeywell para que los da
 
 ## Salida de Datos del Escáner
 
-El escáner está configurado para devolver los datos leídos con el siguiente formato:
+El escáner está configurado para devolver los datos leídos con el siguiente formato según el escáner:
 
 ```
 Aseos1:<CODIGO_DE_BARRAS>
+Entrada1:<CODIGO_DE_BARRAS>
 ```
 
 Donde:
@@ -40,4 +41,6 @@ En el fichero config.json se configuran los siguientes aspectos:
 
 - filename: Nombre del fichero donde se almacenan los códigos de barras. Por defecto, "aseos.json".
 - path: Ruta donde se almacenará el fichero. Por defecto, "ruta_actual/databases".
+- lectorAseos: Prefijo asignado al escáner dedicado a las entradas al aseo.
+- lectorEntrada: Prefijo asignado al escáner dedicado a las entradas tardías.
 
