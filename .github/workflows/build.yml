@@ -25,6 +25,8 @@ jobs:
 
       - name: 📁 Verificar si la carpeta de Windows existe
         run: |
+          echo "Verificando si la carpeta de Windows existe...";
+          ls -R dist
           if [ -d "dist/escaner-win32-x64" ]; then
             echo "✔️ Carpeta de Windows encontrada.";
             echo "windows=true" >> $GITHUB_ENV
