@@ -20,10 +20,13 @@ jobs:
       - name: 📦 Instalar dependencias
         run: npm install
 
-      - name: 🛠️ Instalar Wine (para empaquetado de Windows)
-        run: sudo apt-get update && sudo apt-get install -y wine64
+      - name: 🛠️ Instalar Wine y dependencias para Electron
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt update
+          sudo apt install -y wine64 wine32 libwine libwine:i386 fonts-wine
 
-      - name: 🛠️ Ejecutar script de build para Windows
+      - name: 🛠️ Ejecutar build para Windows
         run: node build.js --platform=win32 --arch=x64
 
       - name: 📁 Subir ejecutable para Windows como artefacto
@@ -32,7 +35,7 @@ jobs:
           name: ejecutable-windows
           path: dist/escaner-win32-x64/
 
-      - name: 🛠️ Ejecutar script de build para Linux
+      - name: 🛠️ Ejecutar build para Linux
         run: node build.js --platform=linux --arch=x64
 
       - name: 📁 Subir ejecutable para Linux como artefacto
@@ -41,7 +44,7 @@ jobs:
           name: ejecutable-linux
           path: dist/escaner-linux-x64/
 
-      - name: 🛠️ Ejecutar script de build para Raspberry Pi
+      - name: 🛠️ Ejecutar build para Raspberry Pi
         run: node build.js --platform=linux --arch=armv7l
 
       - name: 📁 Subir ejecutable para Raspberry Pi como artefacto
