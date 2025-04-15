@@ -14,13 +14,18 @@ jobs:
       - name: 🔄 Clonar el repositorio
         uses: actions/checkout@v3
 
-      - name: 🟢 Usar Node.js 20 (ya viene en la imagen, pero aseguramos)
+      - name: 🟢 Usar Node.js 20
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
       - name: 📦 Instalar dependencias
         run: npm install
+
+      - name: ⚙️ Configurar Wine correctamente
+        run: |
+          mkdir -p /github/home/.wine
+          chown -R node:node /github/home/.wine
 
       - name: 🛠️ Ejecutar build para Windows
         run: node build.js --platform=win32 --arch=x64
