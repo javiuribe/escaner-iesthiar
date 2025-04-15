@@ -1,32 +1,42 @@
-# Archivo: .github/workflows/build.yml
-
-name: Build ejecutables
+name: Build and Release
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🔄 Clonar el repositorio
-        uses: actions/checkout@v3
+      - name: Check out code
+        uses: actions/checkout@v2
 
-      - name: 🟢 Instalar Node.js
-        uses: actions/setup-node@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: '20'
+          node-version: '14'
 
-      - name: 📦 Instalar dependencias
+      - name: Install dependencies
         run: npm install
 
-      - name: 🛠️ Ejecutar script de build
-        run: node build.js
+      - name: Build for multiple platforms
+        run: |
+          # Construcción para Windows
+          electron-packager . escaner --platform=win32 --arch=x64 --out=dist --overwrite
+          # Construcción para Linux
+          electron-packager . escaner --platform=linux --arch=x64 --out=dist --overwrite
+          # Construcción para Raspberry Pi ARMv7l
+          electron-packager . escaner --platform=linux --arch=armv7l --out=dist --overwrite
 
-      - name: 📁 Guardar ejecutables como artefactos
-        uses: actions/upload-artifact@v4
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v1
         with:
-          name: ejecutables
-          path: dist/
+          files: |
+            dist/escaner-win32-x64/*
+            dist/escaner-linux-x64/*
+            dist/escaner-linux-armv7l/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
