@@ -23,16 +23,20 @@ jobs:
         run: npm install
 
       - name: 🛠️ Instalar Wine (para empaquetado de Windows)
-        run: sudo apt-get update && sudo apt-get install -y wine64
+        run: |
+          sudo apt-get update
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          sudo apt-get install -y wine64 wine32
 
       - name: ⚙️ Configurar entorno de Wine
         run: |
-          export WINEPREFIX=/tmp/.wine
+          export WINEPREFIX=$HOME/.wine
           wineboot
 
       - name: 🛠️ Ejecutar build para Windows
         run: |
-          export WINEPREFIX=/tmp/.wine
+          export WINEPREFIX=$HOME/.wine
           node build.js --platform=win32 --arch=x64
 
       - name: 📁 Subir ejecutable para Windows como artefacto
