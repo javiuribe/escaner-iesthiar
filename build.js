@@ -19,8 +19,13 @@ const commands = [
   `npx electron-packager . ${appName} --platform=linux --arch=armv7l --out=dist --overwrite`,
 ];
 
-// Ejecutar los comandos uno por uno
-commands.forEach((cmd, index) => {
+// Verificar si se pasó el argumento 'raspberry'
+const isRaspberry = process.argv.includes('raspberry');
+
+// Ejecutar los comandos correspondientes
+const commandsToExecute = isRaspberry ? [commands[0], commands[3]] : commands;
+
+commandsToExecute.forEach((cmd, index) => {
   console.log(`🚀 Ejecutando: ${cmd}`);
   exec(cmd, (error, stdout, stderr) => {
     if (error) {

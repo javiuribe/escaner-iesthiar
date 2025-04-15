@@ -53,8 +53,16 @@ Este comando ejecutará los siguientes pasos:
 
 1. Instala las dependencias necesarias (npm install).
 
-2. Genera los ejecutables para ambos sistemas operativos en la carpeta dist/. El comando creará dos carpetas dentro de dist/:
+2. Genera los ejecutables para 3 sistemas operativos diferentes en la carpeta dist/:
 
 - escaner-win32-x64/ para Windows.
 
 - escaner-linux-x64/ para Linux.
+
+- escaner-linux-armv7l para Raspberry Pi
+
+Nota: si se desea generar únicamente ejecutable para raspberry pi ejecutar el siguiente comando:
+
+```
+node build raspberry
+```
