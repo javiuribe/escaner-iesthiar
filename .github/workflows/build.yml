@@ -26,7 +26,7 @@ jobs:
         run: node build.js
 
       - name: 📁 Guardar ejecutables como artefactos
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ejecutables
           path: dist/
