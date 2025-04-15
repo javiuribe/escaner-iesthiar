@@ -1,0 +1,32 @@
+# Archivo: .github/workflows/build.yml
+
+name: Build ejecutables
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔄 Clonar el repositorio
+        uses: actions/checkout@v3
+
+      - name: 🟢 Instalar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: 📦 Instalar dependencias
+        run: npm install
+
+      - name: 🛠️ Ejecutar script de build
+        run: node build.js
+
+      - name: 📁 Guardar ejecutables como artefactos
+        uses: actions/upload-artifact@v3
+        with:
+          name: ejecutables
+          path: dist/
