@@ -44,3 +44,17 @@ En el fichero config.json se configuran los siguientes aspectos:
 - lectorAseos: Prefijo asignado al escáner dedicado a las entradas al aseo.
 - lectorEntrada: Prefijo asignado al escáner dedicado a las entradas tardías.
 
+# Generación de ejecutables
+El siguiente comando genera ejecuables para Windows 64 bits y Linux 64 bits
+```
+node build
+```
+Este comando ejecutará los siguientes pasos:
+
+1. Instala las dependencias necesarias (npm install).
+
+2. Genera los ejecutables para ambos sistemas operativos en la carpeta dist/. El comando creará dos carpetas dentro de dist/:
+
+- escaner-win32-x64/ para Windows.
+
+- escaner-linux-x64/ para Linux.
