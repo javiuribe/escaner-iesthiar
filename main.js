@@ -6,7 +6,7 @@ function createWindow() {
     height: 600,
     focusable: true,
     fullscreenable: true,
-    kiosk: true,
+    //kiosk: true,
     //autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,

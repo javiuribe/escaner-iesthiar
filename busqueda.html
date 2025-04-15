@@ -8,10 +8,18 @@
   <script src="./libs/jspdf/jspdf.umd.min.js"></script>
   <script src="./libs/jspdf/jspdf.plugin.autotable.min.js"></script>
   <script src="busqueda.js" defer></script>
+  <script src="reemplazarBD.js"></script>
 </head>
-<header style="display: flex; align-items: center; justify-content: center; padding: 1rem;">
-  <img src="img/logo-thiar.jpg" alt="Logo del centro" style="height: 60px; margin-right: 10px;">
-  <h1 style="margin: 0;">Escáner de carnets - IES Thiar - v0.8</h1>
+<header style="position: relative; padding: 1rem; text-align: center;">
+  <div style="display: inline-flex; align-items: center;">
+    <img src="img/logo-thiar.jpg" alt="Logo del centro" style="height: 60px; margin-right: 1rem;">
+    <h1 style="margin: 0;">Escáner de carnets - IES Thiar - v0.9</h1>
+  </div>
+
+  <div style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);">
+    <input type="file" id="fileInput" accept=".json" style="display: none;" />
+    <button id="btnReemplazarBD" class="btn btn-outline-danger btn-sm">Reemplazar base de datos</button>
+  </div>
 </header>
 
 <body>
