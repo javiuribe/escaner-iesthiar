@@ -45,7 +45,7 @@ En el fichero config.json se configuran los siguientes aspectos:
 - lectorEntrada: Prefijo asignado al escáner dedicado a las entradas tardías.
 
 # Generación de ejecutables
-El siguiente comando genera ejecuables para Windows 64 bits y Linux 64 bits
+El siguiente comando genera ejecuables para Windows 64 bits, Linux 64 bits y Raspberry Pi 64 bits
 ```
 node build
 ```
