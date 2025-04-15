@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/castlabs/electron-linux-wine:latest
+      image: electronuserland/builder:wine
 
     steps:
       - name: 🔄 Clonar el repositorio
@@ -32,19 +32,3 @@ jobs:
           path: dist/escaner-win32-x64/
 
       - name: 🛠️ Ejecutar build para Linux
-        run: node build.js --platform=linux --arch=x64
-
-      - name: 📁 Subir ejecutable para Linux como artefacto
-        uses: actions/upload-artifact@v4
-        with:
-          name: ejecutable-linux
-          path: dist/escaner-linux-x64/
-
-      - name: 🛠️ Ejecutar build para Raspberry Pi
-        run: node build.js --platform=linux --arch=armv7l
-
-      - name: 📁 Subir ejecutable para Raspberry Pi como artefacto
-        uses: actions/upload-artifact@v4
-        with:
-          name: ejecutable-raspberrypi
-          path: dist/escaner-linux-armv7l/
