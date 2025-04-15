@@ -20,23 +20,13 @@ jobs:
       - name: 📦 Instalar dependencias
         run: npm install
 
+      - name: 🛠️ Instalar Wine (para empaquetado de Windows)
+        run: sudo apt-get update && sudo apt-get install -y wine64
+
       - name: 🛠️ Ejecutar script de build para Windows
         run: node build.js --platform=win32 --arch=x64
 
-      - name: 📁 Verificar si la carpeta de Windows existe
-        run: |
-          echo "Verificando si la carpeta de Windows existe...";
-          ls -R dist
-          if [ -d "dist/escaner-win32-x64" ]; then
-            echo "✔️ Carpeta de Windows encontrada.";
-            echo "windows=true" >> $GITHUB_ENV
-          else
-            echo "❌ Carpeta de Windows no encontrada.";
-            echo "windows=false" >> $GITHUB_ENV
-          fi
-
       - name: 📁 Subir ejecutable para Windows como artefacto
-        if: env.windows == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: ejecutable-windows
