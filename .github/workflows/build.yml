@@ -1,3 +1,5 @@
+# .github/workflows/build.yml
+
 name: Build ejecutables
 
 on:
@@ -7,14 +9,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: electronuserland/builder:wine
 
     steps:
       - name: 🔄 Clonar el repositorio
         uses: actions/checkout@v3
 
-      - name: 🟢 Usar Node.js 20
+      - name: 🟢 Instalar Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
@@ -22,13 +22,18 @@ jobs:
       - name: 📦 Instalar dependencias
         run: npm install
 
-      - name: ⚙️ Configurar Wine correctamente
+      - name: 🛠️ Instalar Wine (para empaquetado de Windows)
+        run: sudo apt-get update && sudo apt-get install -y wine64
+
+      - name: ⚙️ Configurar entorno de Wine
         run: |
-          mkdir -p /github/home/.wine
-          chown -R node:node /github/home/.wine
+          export WINEPREFIX=/tmp/.wine
+          wineboot
 
       - name: 🛠️ Ejecutar build para Windows
-        run: node build.js --platform=win32 --arch=x64
+        run: |
+          export WINEPREFIX=/tmp/.wine
+          node build.js --platform=win32 --arch=x64
 
       - name: 📁 Subir ejecutable para Windows como artefacto
         uses: actions/upload-artifact@v4
