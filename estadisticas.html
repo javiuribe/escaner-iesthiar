@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estadísticas</title>
+  <link rel="stylesheet" href="./libs/bootstrap/css/bootstrap.min.css">
+  <script src="estadisticas.js" defer></script>
+  <script src="./libs/jspdf/jspdf.umd.min.js"></script>
+  <script src="./libs/jspdf/jspdf.plugin.autotable.min.js"></script>
+</head>
+<header style="display: flex; align-items: center; padding: 1rem;">
+  <img src="img/logo-thiar.jpg" alt="Logo del centro" style="height: 60px;">
+  <div style="flex: 1; text-align: center;">
+    <h1 style="margin: 0;">Escáner de carnets - IES Thiar - v0.8</h1>
+  </div>
+</header>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand navbar-light sticky-top" style="background-color: #e3f2fd; justify-content: center;">
+    <ul class="navbar-nav d-flex flex-row gap-3">
+      <li class="nav-item">
+        <a class="nav-link" href="./index.html">Lecturas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="./estadisticas.html">Estadísticas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="./busqueda.html">Búsqueda</a>
+      </li>
+    </ul>
+  </nav>
+  <!-- CONTENIDO -->
+  <section class="vh-80 gradient-custom" style="margin-top: 5em; padding-top: 0;">
+    <div class="container h-80">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-10 col-xl-9">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+            <div class="card-body p-4 p-md-5">
+              <h2 class="text-center mb-4">Estadísticas de entradas al aseo/entrada</h2>
+
+              <!-- FILTRO POR FECHAS -->
+              <form class="row g-3 mb-4" id="filtro-fechas">
+                <div class="col-md-5">
+                  <label for="fechaInicio" class="form-label">Fecha inicio</label>
+                  <input type="date" class="form-control" id="fechaInicio">
+                </div>
+                <div class="col-md-5">
+                  <label for="fechaFin" class="form-label">Fecha fin</label>
+                  <input type="date" class="form-control" id="fechaFin">
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                  <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+                </div>
+              </form>
+
+              <!-- BOTÓN DE GENERAR PDF (ubicado debajo del filtro) -->
+              <div class="col-md-12 mb-4">
+                <button id="btnGenerarPDF" class="btn btn-outline-success w-100">
+                  Generar informe PDF
+                </button>
+              </div>
+
+              <!-- TABLA DE RESULTADOS -->
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped text-center" id="tabla-estadisticas-wrapper">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>Codigo</th>
+                      <th>Nombre completo</th>
+                      <th>Curso</th>
+                      <th>Frecuencias aseo</th>
+                      <th>Frecuencias entrada</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tabla-estadisticas">
+                    <!-- Aquí se insertarán las filas dinámicamente -->
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Mensaje si no hay datos -->
+              <p id="mensaje" class="text-center text-muted"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>

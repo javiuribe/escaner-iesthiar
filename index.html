@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./libs/bootstrap/css/bootstrap.min.css">
+  <script src="lector.js"></script>
+  <script src="buscador.js"></script>
+  <title>Lecturas</title>
+</head>
+<header style="display: flex; align-items: center; justify-content: center; padding: 1rem;">
+  <img src="img/logo-thiar.jpg" alt="Logo del centro" style="height: 60px; margin-right: 10px;">
+  <h1 style="margin: 0;">Escáner de carnets - IES Thiar - v0.8</h1>
+</header>
+<body>
+  <nav class="navbar navbar-expand navbar-light sticky-top" style="background-color: #e3f2fd; justify-content: center;">
+    <ul class="navbar-nav d-flex flex-row gap-3">
+      <li class="nav-item">
+        <a class="nav-link active" href="./index.html">Lecturas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="./estadisticas.html">Estadísticas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="./busqueda.html">Búsqueda</a>
+      </li>
+    </ul>
+  </nav>
+
+  <section class="vh-80 gradient-custom" style="margin-top: 5em; padding-top: 0;">
+    <div class="container h-80">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-10 col-xl-9">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+            <div class="card-body p-4 p-md-5">
+              <div>
+                <h2 class="text-center mb-4">Lectura de carnets</h3>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-striped text-center" id="barcode-table">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>Escáner</th>
+                        <th>NIA</th>
+                        <th>Nombre completo</th>
+                        <th>Curso</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Aquí irán las filas generadas con JS -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+</body>
+
+</html>
