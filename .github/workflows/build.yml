@@ -23,7 +23,11 @@ jobs:
         run: npm install
 
       - name: 🛠️ Ejecutar build para Windows
-        run: node build.js --platform=win32 --arch=x64
+        run: |
+          export WINEPREFIX=$HOME/.wine
+          mkdir -p $WINEPREFIX
+          wineboot
+          node build.js --platform=win32 --arch=x64
 
       - name: 📁 Subir ejecutable para Windows como artefacto
         uses: actions/upload-artifact@v4
