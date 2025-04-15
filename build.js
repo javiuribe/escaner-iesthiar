@@ -6,7 +6,8 @@ const appName = 'escaner';
 const commands = [
   'npm install', // Instalar las dependencias
   `electron-packager . ${appName} --platform=win32 --arch=x64 --out=dist --overwrite`, // Windows 64-bit
-  `electron-packager . ${appName} --platform=linux --arch=x64 --out=dist --overwrite` // Linux 64-bit
+  `electron-packager . ${appName} --platform=linux --arch=x64 --out=dist --overwrite`, // Linux 64-bit
+  `electron-packager . ${appName} --platform=linux --arch=armv7l --out=dist --overwrite`, // Raspberry Pi ARMv7l
 ];
 
 // Ejecutar los comandos secuencialmente
