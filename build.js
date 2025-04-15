@@ -1,21 +1,30 @@
 const { exec } = require('child_process');
+const fs = require('fs');
+const path = require('path');
 
 const appName = 'escaner';
+const distPath = path.join(__dirname, 'dist');
 
-// Comandos para instalar dependencias y luego empaquetar
+// Asegúrate de que la carpeta dist existe
+if (!fs.existsSync(distPath)) {
+  fs.mkdirSync(distPath);
+  console.log('📁 Carpeta dist creada');
+}
+
+// Comandos para empaquetar
 const commands = [
-  'npm install', // Instalar las dependencias
-  `electron-packager . ${appName} --platform=win32 --arch=x64 --out=dist --overwrite`, // Windows 64-bit
-  `electron-packager . ${appName} --platform=linux --arch=x64 --out=dist --overwrite`, // Linux 64-bit
-  `electron-packager . ${appName} --platform=linux --arch=armv7l --out=dist --overwrite`, // Raspberry Pi ARMv7l
+  'npm install',
+  `npx electron-packager . ${appName} --platform=win32 --arch=x64 --out=dist --overwrite`,
+  `npx electron-packager . ${appName} --platform=linux --arch=x64 --out=dist --overwrite`,
+  `npx electron-packager . ${appName} --platform=linux --arch=armv7l --out=dist --overwrite`,
 ];
 
-// Ejecutar los comandos secuencialmente
+// Ejecutar los comandos uno por uno
 commands.forEach((cmd, index) => {
-  console.log(`Ejecutando: ${cmd}`);
+  console.log(`🚀 Ejecutando: ${cmd}`);
   exec(cmd, (error, stdout, stderr) => {
     if (error) {
-      console.error(`Error al ejecutar el comando #${index + 1}:\n${error}`);
+      console.error(`❌ Error al ejecutar el comando #${index + 1}:\n${error.message}`);
       return;
     }
     console.log(stdout);
