@@ -7,24 +7,20 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: electronuserland/builder:wine
 
     steps:
       - name: 🔄 Clonar el repositorio
         uses: actions/checkout@v3
 
-      - name: 🟢 Instalar Node.js
+      - name: 🟢 Usar Node.js 20 (ya viene en la imagen, pero aseguramos)
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
       - name: 📦 Instalar dependencias
         run: npm install
-
-      - name: 🛠️ Instalar Wine y dependencias para Electron
-        run: |
-          sudo dpkg --add-architecture i386
-          sudo apt update
-          sudo apt install -y wine64 wine32 libwine libwine:i386 fonts-wine
 
       - name: 🛠️ Ejecutar build para Windows
         run: node build.js --platform=win32 --arch=x64
