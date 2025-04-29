@@ -1,12 +1,14 @@
 const { app, BrowserWindow } = require('electron');
 
 function createWindow() {
+  const isRaspberry = process.arch.startsWith('arm');
+
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     focusable: true,
     fullscreenable: true,
-    kiosk: true,
+    kiosk: isRaspberry,
     autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
