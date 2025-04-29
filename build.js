@@ -17,7 +17,7 @@ const commands = [
   'npm install',
   `npx electron-packager . ${appName} --platform=win32 --arch=x64 --out=dist --overwrite --icon=${iconWindows}`,
   `npx electron-packager . ${appName} --platform=linux --arch=x64 --out=dist --overwrite --icon=${iconLinux}`,
-  `npx electron-packager . ${appName} --platform=linux --arch=armv7l --out=dist --overwrite --icon=${iconLinux}`,
+  `npx electron-packager . ${appName} --platform=linux --arch=arm64 --out=dist --overwrite --icon=${iconLinux}`,
 ];
 
 // Verificar si se pasó el argumento 'raspberry'
