@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   escannerSelect.value = config.lectorAseos;
+  let nombreAlumnoInforme = 'Alumno';
 
   const fechaInicioInput = document.getElementById("fechaInicio");
   const fechaFinInput = document.getElementById("fechaFin");
@@ -78,6 +79,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (registrosFiltrados.length > 0) {
       tablaBusqueda.innerHTML = "";
+      nombreInforme = registrosFiltrados[0].nombreCompleto || 'Alumno';
       registrosFiltrados.forEach(entry => {
         const row = document.createElement("tr");
         const date = new Date(entry.timestamp);
@@ -86,6 +88,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <td>${entry.nia}</td>
           <td>${entry.nombreCompleto || 'Desconocido'}</td>
           <td>${entry.curso || 'Desconocido'}</td>
+          <td>${entry.estado || ''}</td>
           <td>${date.toLocaleDateString()}</td>
           <td>${date.toLocaleTimeString()}</td>
         `;
@@ -107,13 +110,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    const fechaInicio = fechaInicioInput.value;
-    const fechaFin = fechaFinInput.value;
+    const fechaInicio = new Date(fechaInicioInput.value).toLocaleDateString();
+    const fechaFin = new Date(fechaFinInput.value).toLocaleDateString();
+    const niaInput = document.getElementById("barcode").value.trim() || 'Alumno';
 
     doc.setFontSize(16);
-    doc.text("Informe de búsqueda", 14, 20);
+    doc.text(`Historial del escáner ${escannerSelect.value} del alumno ${nombreInforme}`, 14, 20);
     doc.setFontSize(12);
-    doc.text(`De ${fechaInicio} a ${fechaFin}`, 14, 28);
+    doc.text(`De ${fechaInicio} a ${fechaFin}`, 14, 26);
 
     const tabla = document.getElementById("tabla-busqueda");
 
@@ -122,7 +126,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    const headers = ["Escáner", "NIA", "Nombre completo", "Curso", "Fecha", "Hora"];
+    const headers = ["Escáner", "NIA", "Nombre completo", "Curso", "Estado", "Fecha", "Hora"];
 
     doc.autoTable({
       head: [headers],
@@ -132,7 +136,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       headStyles: { fillColor: [40, 167, 69] },
       margin: { top: 10 }
     });
-
-    doc.save("informe_busqueda.pdf");
+      
+    const nombreArchivo = `Informe_${niaInput}_${fechaInicio}_${fechaFin}.pdf`;
+    doc.save(nombreArchivo);
   });
 });

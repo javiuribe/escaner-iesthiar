@@ -25,6 +25,7 @@ document.addEventListener('keypress', (event) => {
       const codigoAlumno = partes[0]?.trim() || 'Desconocido';
       const nombreCompleto = `${partes[1]?.trim() || ''} ${partes[2]?.trim() || ''}`.trim() || 'Desconocido';
       const curso = partes[3]?.trim() || 'Desconocido';
+      const estado = partes[4]?.trim() || '';
 
       // Mostrar en pantalla
       const tableBody = document.querySelector('#barcode-table tbody');
@@ -49,16 +50,20 @@ document.addEventListener('keypress', (event) => {
       const cellTime = document.createElement('td');
       cellTime.textContent = dateObj.toLocaleTimeString();
 
+      const cellEstado = document.createElement('td');
+      cellEstado.textContent = estado;
+
       row.appendChild(cellLocation);
       row.appendChild(cellCodigo);
       row.appendChild(cellNombre);
       row.appendChild(cellCurso);
       row.appendChild(cellDate);
       row.appendChild(cellTime);
+      row.appendChild(cellEstado);
 
       tableBody.appendChild(row);
 
-      guardarCodigoEnArchivo(location, codigoAlumno, nombreCompleto, curso, timestamp);
+      guardarCodigoEnArchivo(location, codigoAlumno, nombreCompleto, curso, estado, timestamp);
     }
 
     inputBuffer = [];
@@ -68,7 +73,7 @@ document.addEventListener('keypress', (event) => {
 });
 
 // Guardar datos en archivo JSON
-function guardarCodigoEnArchivo(location, nia, nombreCompleto, curso, timestamp) {
+function guardarCodigoEnArchivo(location, nia, nombreCompleto, curso, estado, timestamp) {
   const filePath = path.join(__dirname, config.path, config.filename);
   let data = [];
 
@@ -83,7 +88,7 @@ function guardarCodigoEnArchivo(location, nia, nombreCompleto, curso, timestamp)
     }
   }
 
-  data.push({ location, nia, nombreCompleto, curso, timestamp });
+  data.push({ location, nia, nombreCompleto, curso, estado, timestamp });
 
   try {
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');

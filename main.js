@@ -9,7 +9,7 @@ function createWindow() {
     focusable: true,
     fullscreenable: true,
     kiosk: isRaspberry,
-    autoHideMenuBar: true,
+    //autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
