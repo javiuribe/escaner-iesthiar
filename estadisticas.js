@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const contadorAseo = {};
     const contadorEntrada = {};
-    const contadorOlvido = {};  
+    const contadorOlvido = {};
     const nombres = {};
     const cursos = {};
 
@@ -118,8 +118,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    const fechaInicio = fechaInicioInput.value;
-    const fechaFin = fechaFinInput.value;
+    const fechaInicio = new Date(fechaInicioInput.value).toLocaleDateString();
+    const fechaFin = new Date(fechaFinInput.value).toLocaleDateString();
 
     // Cargar imagen
     const img = new Image();
@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
       doc.addImage(img, "JPEG", 14, 10, 40, 25); // x, y, width, height
 
       doc.setFontSize(18);
-      doc.text("Informe de frecuencias al aseo y entrada", 14, 50);
+      doc.text("Informe de frecuencias al aseo, entrada y olvidos de carnet", 14, 50);
       doc.setFontSize(12);
       doc.text(`Del ${fechaInicio} al ${fechaFin}`, 14, 58);
 
@@ -156,7 +156,8 @@ document.addEventListener("DOMContentLoaded", () => {
         styles: { fontSize: 10 }
       });
 
-      doc.save("informe-estadisticas.pdf");
+      const nombreArchivo = `informe-estadisticas-${fechaInicio}-${fechaFin}.pdf`;
+      doc.save(nombreArchivo);
     };
 
     img.onerror = function () {
