@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const contadorAseo = {};
     const contadorEntrada = {};
+    const contadorOlvido = {};  
     const nombres = {};
     const cursos = {};
 
@@ -69,6 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (entry.location === lectorAseos) {
         contadorAseo[nia] = (contadorAseo[nia] || 0) + 1;
+        if (entry.estado && entry.estado.toLowerCase() === "olvidado") {
+          contadorOlvido[nia] = (contadorOlvido[nia] || 0) + 1;
+        }
       }
 
       if (entry.location === lectorEntrada) {
@@ -87,6 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const nombre = nombres[nia];
         const curso = cursos[nia];
         const frecuenciaEntrada = contadorEntrada[nia] || 0;
+        const frecuenciaOlvido = contadorOlvido[nia] || 0;
         const row = document.createElement("tr");
         row.innerHTML = `
           <td>${nia}</td>
@@ -94,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <td>${curso}</td>
           <td>${veces}</td>
           <td>${frecuenciaEntrada}</td>
+          <td>${frecuenciaOlvido}</td>
         `;
         tablaEstadisticas.appendChild(row);
       });
@@ -127,12 +133,12 @@ document.addEventListener("DOMContentLoaded", () => {
       doc.setFontSize(12);
       doc.text(`Del ${fechaInicio} al ${fechaFin}`, 14, 58);
 
-      const headers = [["NIA", "Nombre completo", "Curso", "Frecuencias aseo", "Frecuencias entrada"]];
+      const headers = [["NIA", "Nombre completo", "Curso", "Frecuencias aseo", "Frecuencias entrada", "Frecuencias olvido"]];
       const data = [];
 
       document.querySelectorAll("#tabla-estadisticas tr").forEach(row => {
         const cols = Array.from(row.querySelectorAll("td")).map(td => td.innerText);
-        if (cols.length === 5) {
+        if (cols.length === 6) {
           data.push(cols);
         }
       });
