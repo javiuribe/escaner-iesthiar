@@ -1,8 +1,16 @@
 # escaner-iesthiar
 
-# Configuración del Escáner Honeywell
+# Descarga de Ezconfig
 
-Este documento describe la configuración del escáner Honeywell para que los datos escaneados incluyan un prefijo específico.
+El escáner debe configurarse para que tenga un prefijo específico y debe tener un formato que permita separar los campos con punto y coma ";". Para ello, hay un fichero llamado config-escaner.exm que se puede importar en el escáner. Esto se debe hacer con el software Ezconfig.
+
+La última versión de EZConfig disponible para el público en general:
+
+Versión 4.X.X basada en navegador HTML para configurar los escáneres Honeywell de las generaciones 6 y 7.
+Esta versión es compatible con MS Edge, Google Chrome, Internet Explorer y Firefox.
+La aplicación EZConfig para escaneo basada en navegador más reciente, versión 4.5.57 con fecha de septiembre de 2023,
+se puede descargar desde la página de descargas de software de Honeywell en: https://hsmftp.honeywell.com/
+Software > Barcode Scanners > Software > Tools and Utilities > EZConfig for Scanning > Current.
 
 ## Salida de Datos del Escáner
 
@@ -23,20 +31,11 @@ Donde:
 Para configurar el prefijo "aseo1" en el escáner, se han seguido estos pasos:
 
 1. **Uso de EZConfig**: Se ha utilizado la herramienta EZConfig de Honeywell para establecer el prefijo. Es una página web que se debe lanzar con el comando de chrome y opciones para acceder a ficheros. Ejemplo: "C:\Program Files\Google\Chrome\Application\chrome.exe" --allow-file-access-from-files  
-2. **Configuración del prefijo**: Se establece el prefijo deseado. Ejemplo "Aseo1:".
+2. **Configuración del prefijo**: Se establece el prefijo deseado. Ejemplo "Aseos1:".
 3. **Guardado**: Se guarda la configuración en el dispositivo.
 
-## Compatibilidad
 
-Este escáner funcionará con cualquier sistema que acepte entrada de teclado, como:
-
-- Aplicaciones de escritorio.
-- Formularios web.
-- Software de gestión.
-
-Si necesitas modificar el prefijo o restaurar la configuración de fábrica, utiliza la herramienta EZConfig.
-
-# Configuración del Programa
+# Configuración del Programa Escáner IES Thiar
 En el fichero config.json se configuran los siguientes aspectos:
 
 - filename: Nombre del fichero donde se almacenan los códigos de barras. Por defecto, "aseos.json".
@@ -55,11 +54,11 @@ Este comando ejecutará los siguientes pasos:
 
 2. Genera los ejecutables para 3 sistemas operativos diferentes en la carpeta dist/:
 
-- escaner-win32-x64/ para Windows.
+- escaner-win32-x64 para Windows.
 
-- escaner-linux-x64/ para Linux.
+- escaner-linux-x64 para Linux.
 
-- escaner-linux-armv7l para Raspberry Pi
+- escaner-linux-arm64 para Raspberry Pi
 
 Nota: si se desea generar únicamente ejecutable para raspberry pi ejecutar el siguiente comando:
 
