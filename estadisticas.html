@@ -14,7 +14,7 @@
 <header style="position: relative; padding: 1rem; text-align: center;">
   <div style="display: inline-flex; align-items: center;">
     <img src="img/logo-thiar.jpg" alt="Logo del centro" style="height: 60px; margin-right: 1rem;">
-    <h1 style="margin: 0;">Escáner de carnets - IES Thiar - v0.9</h1>
+    <h1 style="margin: 0;">Escáner de carnets - IES Thiar - v1.1</h1>
   </div>
 
   <div style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);">
@@ -53,14 +53,21 @@
                   <label for="fechaInicio" class="form-label">Fecha inicio</label>
                   <input type="date" class="form-control" id="fechaInicio">
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-6">
                   <label for="fechaFin" class="form-label">Fecha fin</label>
                   <input type="date" class="form-control" id="fechaFin">
                 </div>
-                <div class="col-md-2 d-flex align-items-end">
-                  <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+                <div class="form-group col-md-6">
+                  <label for="ordenarPor" class="form-label">Ordenar por</label>
+                  <select id="ordenarPor" class="form-control">
+                    <option value="aseo" selected>Frecuencia Aseo</option>
+                    <option value="entrada">Frecuencia Entrada</option>
+                  </select>
                 </div>
-              </form>
+                <div class="col-md-12 mb-4">
+                <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+              </div>
+              </form>              
 
               <!-- BOTÓN DE GENERAR PDF (ubicado debajo del filtro) -->
               <div class="col-md-12 mb-4">

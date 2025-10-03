@@ -49,12 +49,10 @@ document.addEventListener("DOMContentLoaded", () => {
     mensaje.textContent = "";
     const datos = await cargarDatos();
 
+    // Filtrar por fechas
     const datosFiltrados = datos.filter(entry => {
       const fecha = entry.timestamp.split("T")[0];
-      return (
-        fecha >= fechaInicio &&
-        fecha <= fechaFin
-      );
+      return fecha >= fechaInicio && fecha <= fechaFin;
     });
 
     const contadorAseo = {};
@@ -83,31 +81,57 @@ document.addEventListener("DOMContentLoaded", () => {
       cursos[nia] = curso;
     });
 
-    const resultadosOrdenados = Object.entries(contadorAseo).sort((a, b) => b[1] - a[1]);
+    // Obtener criterio de orden elegido por el usuario
+    const ordenarPor = document.getElementById("ordenarPor").value; // 'aseo' o 'entrada'
 
+    // Obtener todos los NIA únicos
+    const allNia = new Set([
+      ...Object.keys(contadorAseo),
+      ...Object.keys(contadorEntrada),
+      ...Object.keys(contadorOlvido)
+    ]);
+
+    // Crear array de resultados con el criterio de orden
+    const resultados = Array.from(allNia).map(nia => {
+      return {
+        nia,
+        valor: ordenarPor === "aseo" ? (contadorAseo[nia] || 0) : (contadorEntrada[nia] || 0)
+      };
+    });
+
+    // Orden descendente
+    const resultadosOrdenados = resultados.sort((a, b) => b.valor - a.valor);
+
+    // Renderizar tabla
+    tablaEstadisticas.innerHTML = "";
     if (resultadosOrdenados.length > 0) {
-      tablaEstadisticas.innerHTML = "";
-      resultadosOrdenados.forEach(([nia, veces]) => {
+      resultadosOrdenados.forEach(({ nia }) => {
         const nombre = nombres[nia];
         const curso = cursos[nia];
+        const frecuenciaAseo = contadorAseo[nia] || 0;
         const frecuenciaEntrada = contadorEntrada[nia] || 0;
         const frecuenciaOlvido = contadorOlvido[nia] || 0;
+
         const row = document.createElement("tr");
         row.innerHTML = `
-          <td>${nia}</td>
-          <td>${nombre}</td>
-          <td>${curso}</td>
-          <td>${veces}</td>
-          <td>${frecuenciaEntrada}</td>
-          <td>${frecuenciaOlvido}</td>
-        `;
+        <td>${nia}</td>
+        <td>${nombre}</td>
+        <td>${curso}</td>
+        <td>${frecuenciaAseo}</td>
+        <td>${frecuenciaEntrada}</td>
+        <td>${frecuenciaOlvido}</td>
+      `;
         tablaEstadisticas.appendChild(row);
       });
     } else {
-      tablaEstadisticas.innerHTML = "";
       mensaje.textContent = "No se encontraron resultados para este rango de fechas.";
     }
   }
+  
+
+  // Agregar listener para que al cambiar el select se reordene automáticamente
+  document.getElementById("ordenarPor").addEventListener("change", filtrarYContar);
+
 
   formFiltro.addEventListener("submit", (e) => {
     e.preventDefault();
