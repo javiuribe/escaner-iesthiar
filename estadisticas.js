@@ -93,10 +93,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Crear array de resultados con el criterio de orden
     const resultados = Array.from(allNia).map(nia => {
-      return {
-        nia,
-        valor: ordenarPor === "aseo" ? (contadorAseo[nia] || 0) : (contadorEntrada[nia] || 0)
-      };
+      let valor = 0;
+      if (ordenarPor === "aseo") {
+        valor = contadorAseo[nia] || 0;
+      } else if (ordenarPor === "entrada") {
+        valor = contadorEntrada[nia] || 0;
+      } else if (ordenarPor === "olvido") {
+        valor = contadorOlvido[nia] || 0;
+      }
+      return { nia, valor };
     });
 
     // Orden descendente
@@ -127,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
       mensaje.textContent = "No se encontraron resultados para este rango de fechas.";
     }
   }
-  
+
 
   // Agregar listener para que al cambiar el select se reordene automáticamente
   document.getElementById("ordenarPor").addEventListener("change", filtrarYContar);
